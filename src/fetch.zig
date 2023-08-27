@@ -35,8 +35,8 @@ pub fn fetch(alloc: Allocator, deps: *StringHashMap(Dependency)) !void {
             }
 
             var child = try alloc.create(ChildProcess);
-            const ref = try fmt.allocPrint(alloc, "tarball+{s}", .{dep.url});
-            const argv = &[_][]const u8{ nix, "flake", "prefetch", "--json", "--extra-experimental-features", "flakes nix-command", ref };
+            // const ref = try fmt.allocPrint(alloc, "{s}", .{dep.url});
+            const argv = &[_][]const u8{ nix, "flake", "prefetch", "--json", "--extra-experimental-features", "flakes nix-command", dep.url };
             child.* = ChildProcess.init(argv, alloc);
             child.stdin_behavior = .Ignore;
             child.stdout_behavior = .Pipe;
